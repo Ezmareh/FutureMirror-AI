@@ -1,5 +1,75 @@
 import streamlit as st
+import google.generativeai as genai
+import json
+# -----------------------------
+# GEMINI SETUP
+# -----------------------------
 
+genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
+
+model = genai.GenerativeModel("gemini-2.0-flash")
+
+def generate_future(name, age, grade, subjects, interests, strengths, goals):
+
+    prompt = f"""
+You are FutureMirror AI.
+
+A student has answered a career questionnaire.
+
+Name: {name}
+Age: {age}
+Grade: {grade}
+
+Favourite Subjects:
+{", ".join(subjects)}
+
+Interests:
+{interests}
+
+Strengths:
+{strengths}
+
+Goals:
+{goals}
+
+Your task is to generate THREE possible future career paths.
+
+Format exactly like this.
+
+## 🟢 Reflection Alpha
+
+Career:
+Compatibility:
+Future Snapshot:
+Powers You'll Need:
+- item
+- item
+- item
+- item
+
+First Mission:
+Journey Ahead:
+Biggest Obstacle:
+Why This Fits You:
+
+Repeat for:
+
+🟣 Reflection Beta
+
+🔵 Reflection Gamma
+
+Make each reflection different.
+
+Be encouraging.
+
+Avoid generic advice.
+
+Keep the total response under 700 words.
+"""
+
+    response = model.generate_content(prompt)
+
+    return response.text
 # -----------------------------
 # PAGE CONFIGURATION
 # -----------------------------
@@ -213,67 +283,37 @@ elif page == "🪞 Discover My Future":
 
         status.success("Mirror Unlocked!")
 
-        st.balloons()
+        with st.spinner("🪞 Looking into your future..."):
 
-        st.divider()
+            try:
 
-        with st.expander("🟢 Reflection Alpha",expanded=True):
+                ai_response = generate_future(
+                    name,
+                    age,
+                    grade,
+                    subjects,
+                    interests,
+                    strengths,
+                    goals
+                )
 
-            st.subheader("AI Engineer")
+                st.balloons()
 
-            st.metric("Compatibility","92%")
+                st.divider()
 
-            st.markdown("### 💬 Future Snapshot")
+                st.markdown(ai_response)
 
-            st.info(
-                "It is 2037. You are building intelligent software that helps millions of people solve everyday problems. Every day brings a new challenge, and that's exactly what motivates you."
-            )
+                st.divider()
 
-            st.markdown("### 🧠 Powers You'll Need")
+                st.caption(
+                    "🪞 FutureMirror AI explores possibilities—not certainties. Your future depends on the choices you make today."
+                )
 
-            st.write("- Python")
-            st.write("- Machine Learning")
-            st.write("- Problem Solving")
-            st.write("- Communication")
+            except Exception as e:
 
-            st.markdown("### 🚀 First Mission")
+                st.error("Something went wrong while contacting the AI.")
 
-            st.success("Build your first AI chatbot or personal assistant.")
-
-            st.markdown("### 🎓 Journey Ahead")
-
-            st.write("Computer Science → AI Specialization")
-
-            st.markdown("### ⚠ Biggest Obstacle")
-
-            st.warning("Technology changes quickly. Lifelong learning is essential.")
-
-        with st.expander("🟣 Reflection Beta"):
-
-            st.subheader("Technology Entrepreneur")
-
-            st.metric("Compatibility","86%")
-
-            st.info(
-                "You could lead your own startup, building products that improve everyday life while creating opportunities for others."
-            )
-
-        with st.expander("🔵 Reflection Gamma"):
-
-            st.subheader("Product Designer")
-
-            st.metric("Compatibility","80%")
-
-            st.info(
-                "Your creativity and curiosity could help you design products that millions of people use every day."
-            )
-
-        st.divider()
-
-        st.caption(
-            "FutureMirror AI explores possibilities—not certainties. Your future depends on the choices you make today."
-        )
-
+                st.exception(e)
 # -----------------------------
 # CAREER LIBRARY
 # -----------------------------
