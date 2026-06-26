@@ -50,13 +50,14 @@ if page == "🏠 Home":
         color:#E5E7EB;
     }
 
-    .card{
-        background:#f8f9fa;
-        padding:25px;
-        border-radius:15px;
-        border-left:6px solid #7C3AED;
-        margin-top:20px;
-    }
+.card{
+    background:#f8f9fa;
+    color:#111827;
+    padding:25px;
+    border-radius:15px;
+    border-left:6px solid #7C3AED;
+    margin-top:20px;
+}
 
     .quote{
         text-align:center;
