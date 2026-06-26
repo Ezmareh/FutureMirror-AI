@@ -1,13 +1,13 @@
 import streamlit as st
-import google.generativeai as genai
-import json
+from openai import OpenAI
 # -----------------------------
 # GEMINI SETUP
 # -----------------------------
 
-genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
-
-model = genai.GenerativeModel("gemini-2.0-flash")
+client = OpenAI(
+    api_key=st.secrets["OPENROUTER_API_KEY"],
+    base_url="https://openrouter.ai/api/v1"
+)
 
 def generate_future(name, age, grade, subjects, interests, strengths, goals):
 
@@ -67,9 +67,18 @@ Avoid generic advice.
 Keep the total response under 700 words.
 """
 
-    response = model.generate_content(prompt)
+response = client.chat.completions.create(
+    model="meta-llama/llama-3.3-70b-instruct:free",
+    messages=[
+        {
+            "role": "user",
+            "content": prompt
+        }
+    ],
+    temperature=0.8,
+)
 
-    return response.text
+return response.choices[0].message.content
 # -----------------------------
 # PAGE CONFIGURATION
 # -----------------------------
