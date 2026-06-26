@@ -1,86 +1,4 @@
 import streamlit as st
-from openai import OpenAI
-
-# -----------------------------
-# GEMINI SETUP
-# -----------------------------
-
-client = OpenAI(
-    api_key=st.secrets["OPENROUTER_API_KEY"],
-    base_url="https://openrouter.ai/api/v1"
-)
-
-def generate_future(name, age, grade, subjects, interests, strengths, goals):
-
-    prompt = f"""
-You are FutureMirror AI.
-
-A student has answered a career questionnaire.
-
-Name: {name}
-Age: {age}
-Grade: {grade}
-
-Favourite Subjects:
-{", ".join(subjects)}
-
-Interests:
-{interests}
-
-Strengths:
-{strengths}
-
-Goals:
-{goals}
-
-Your task is to generate THREE possible future career paths.
-
-Format exactly like this.
-
-## 🟢 Reflection Alpha
-
-Career:
-Compatibility:
-Future Snapshot:
-Powers You'll Need:
-- item
-- item
-- item
-- item
-
-First Mission:
-Journey Ahead:
-Biggest Obstacle:
-Why This Fits You:
-
-Repeat for:
-
-🟣 Reflection Beta
-
-🔵 Reflection Gamma
-
-Make each reflection different.
-
-Be encouraging.
-
-Avoid generic advice.
-
-Keep the total response under 700 words.
-"""
-
-    response = client.chat.completions.create(
-        model="meta-llama/llama-3.3-70b-instruct:free",
-        messages=[
-            {
-                "role": "user",
-                "content": prompt
-            }
-        ],
-        temperature=0.8,
-    )
-
-    return response.choices[0].message.content
-
 
 # -----------------------------
 # PAGE CONFIGURATION
@@ -143,7 +61,6 @@ if page == "🏠 Home":
     border-left:6px solid #7C3AED;
     margin-top:20px;
 }
-
     .quote{
         text-align:center;
         font-size:22px;
@@ -280,7 +197,6 @@ elif page == "🪞 Discover My Future":
 
         status.write("🪞 Initializing Mirror...")
         progress.progress(20)
-        import time
         time.sleep(1)
 
         status.write("🧠 Analyzing strengths...")
@@ -297,37 +213,66 @@ elif page == "🪞 Discover My Future":
 
         status.success("Mirror Unlocked!")
 
-        with st.spinner("🪞 Looking into your future..."):
+        st.balloons()
 
-            try:
+        st.divider()
 
-                ai_response = generate_future(
-                    name,
-                    age,
-                    grade,
-                    subjects,
-                    interests,
-                    strengths,
-                    goals
-                )
+        with st.expander("🟢 Reflection Alpha",expanded=True):
 
-                st.balloons()
+            st.subheader("AI Engineer")
 
-                st.divider()
+            st.metric("Compatibility","92%")
 
-                st.markdown(ai_response)
+            st.markdown("### 💬 Future Snapshot")
 
-                st.divider()
+            st.info(
+                "It is 2037. You are building intelligent software that helps millions of people solve everyday problems. Every day brings a new challenge, and that's exactly what motivates you."
+            )
 
-                st.caption(
-                    "🪞 FutureMirror AI explores possibilities—not certainties. Your future depends on the choices you make today."
-                )
+            st.markdown("### 🧠 Powers You'll Need")
 
-            except Exception as e:
+            st.write("- Python")
+            st.write("- Machine Learning")
+            st.write("- Problem Solving")
+            st.write("- Communication")
 
-                st.error("Something went wrong while contacting the AI.")
+            st.markdown("### 🚀 First Mission")
 
-                st.exception(e)
+            st.success("Build your first AI chatbot or personal assistant.")
+
+            st.markdown("### 🎓 Journey Ahead")
+
+            st.write("Computer Science → AI Specialization")
+
+            st.markdown("### ⚠ Biggest Obstacle")
+
+            st.warning("Technology changes quickly. Lifelong learning is essential.")
+
+        with st.expander("🟣 Reflection Beta"):
+
+            st.subheader("Technology Entrepreneur")
+
+            st.metric("Compatibility","86%")
+
+            st.info(
+                "You could lead your own startup, building products that improve everyday life while creating opportunities for others."
+            )
+
+        with st.expander("🔵 Reflection Gamma"):
+
+            st.subheader("Product Designer")
+
+            st.metric("Compatibility","80%")
+
+            st.info(
+                "Your creativity and curiosity could help you design products that millions of people use every day."
+            )
+
+        st.divider()
+
+        st.caption(
+            "FutureMirror AI explores possibilities—not certainties. Your future depends on the choices you make today."
+        )
 
 # -----------------------------
 # CAREER LIBRARY
