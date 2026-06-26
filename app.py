@@ -24,6 +24,8 @@ page = st.sidebar.radio(
     ]
 )
 
+st.sidebar.markdown("---")
+st.sidebar.caption("Version 1.0")
 # -----------------------------
 # HOME PAGE
 # -----------------------------
@@ -124,7 +126,153 @@ if page == "🏠 Home":
 # -----------------------------
 elif page == "🪞 Discover My Future":
 
+    import time
+
     st.title("🪞 Discover My Future")
+
+    st.markdown(
+        "Answer a few questions and let FutureMirror AI explore three possible futures for you."
+    )
+
+    st.divider()
+
+    col1, col2 = st.columns(2)
+
+    with col1:
+        name = st.text_input("Your Name")
+
+        age = st.slider("Age",13,25,16)
+
+        grade = st.selectbox(
+            "Current Grade",
+            [
+                "Grade 8",
+                "Grade 9",
+                "Grade 10",
+                "Grade 11",
+                "Grade 12",
+                "University"
+            ]
+        )
+
+        subjects = st.multiselect(
+            "Favorite Subjects",
+            [
+                "Mathematics",
+                "Physics",
+                "Computer Science",
+                "Biology",
+                "Chemistry",
+                "Business",
+                "Economics",
+                "English",
+                "Art"
+            ]
+        )
+
+    with col2:
+
+        interests = st.text_area(
+            "What are your biggest interests?",
+            placeholder="Gaming, coding, football, business, helping people..."
+        )
+
+        strengths = st.text_area(
+            "What are your biggest strengths?",
+            placeholder="Creative, leadership, problem solving..."
+        )
+
+        goals = st.text_area(
+            "What impact do you want to make?",
+            placeholder="Build technology, help people, solve climate change..."
+        )
+
+    st.divider()
+
+    if st.button("🪞 Reveal My Futures",use_container_width=True):
+
+        progress = st.progress(0)
+
+        status = st.empty()
+
+        status.write("🪞 Initializing Mirror...")
+        progress.progress(20)
+        time.sleep(1)
+
+        status.write("🧠 Analyzing strengths...")
+        progress.progress(45)
+        time.sleep(1)
+
+        status.write("📚 Matching careers...")
+        progress.progress(70)
+        time.sleep(1)
+
+        status.write("✨ Building future reflections...")
+        progress.progress(100)
+        time.sleep(1)
+
+        status.success("Mirror Unlocked!")
+
+        st.balloons()
+
+        st.divider()
+
+        with st.expander("🟢 Reflection Alpha",expanded=True):
+
+            st.subheader("AI Engineer")
+
+            st.metric("Compatibility","92%")
+
+            st.markdown("### 💬 Future Snapshot")
+
+            st.info(
+                "It is 2037. You are building intelligent software that helps millions of people solve everyday problems. Every day brings a new challenge, and that's exactly what motivates you."
+            )
+
+            st.markdown("### 🧠 Powers You'll Need")
+
+            st.write("- Python")
+            st.write("- Machine Learning")
+            st.write("- Problem Solving")
+            st.write("- Communication")
+
+            st.markdown("### 🚀 First Mission")
+
+            st.success("Build your first AI chatbot or personal assistant.")
+
+            st.markdown("### 🎓 Journey Ahead")
+
+            st.write("Computer Science → AI Specialization")
+
+            st.markdown("### ⚠ Biggest Obstacle")
+
+            st.warning("Technology changes quickly. Lifelong learning is essential.")
+
+        with st.expander("🟣 Reflection Beta"):
+
+            st.subheader("Technology Entrepreneur")
+
+            st.metric("Compatibility","86%")
+
+            st.info(
+                "You could lead your own startup, building products that improve everyday life while creating opportunities for others."
+            )
+
+        with st.expander("🔵 Reflection Gamma"):
+
+            st.subheader("Product Designer")
+
+            st.metric("Compatibility","80%")
+
+            st.info(
+                "Your creativity and curiosity could help you design products that millions of people use every day."
+            )
+
+        st.divider()
+
+        st.caption(
+            "FutureMirror AI explores possibilities—not certainties. Your future depends on the choices you make today."
+        )
 
 # -----------------------------
 # CAREER LIBRARY
