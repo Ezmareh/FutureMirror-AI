@@ -291,6 +291,10 @@ elif page == "🪞 Discover My Future":
 # -----------------------------
 # CAREER LIBRARY
 # -----------------------------
+elif page == "📚 Career Library":
+
+    st.title("📚 Career Library")
+
 careers = [
 
 {"name":"👨‍⚕️ Doctor","description":"Diagnoses illnesses and treats patients.","salary":"$80k–250k/year","skills":"Biology, Empathy, Communication","degree":"Medicine (MBBS/MD)"},
