@@ -291,73 +291,69 @@ elif page == "🪞 Discover My Future":
 # -----------------------------
 # CAREER LIBRARY
 # -----------------------------
+```python
+# -----------------------------
+# CAREER LIBRARY
+# -----------------------------
 elif page == "📚 Career Library":
 
     st.title("📚 Career Library")
+    st.markdown("Explore a variety of exciting careers and discover what each one involves.")
 
-careers = [
+    careers = [
 
-{"name":"👨‍⚕️ Doctor","description":"Diagnoses illnesses and treats patients.","salary":"$80k–250k/year","skills":"Biology, Empathy, Communication","degree":"Medicine (MBBS/MD)"},
+        {"name":"👨‍⚕️ Doctor","description":"Diagnoses illnesses and treats patients.","salary":"$80k–250k/year","skills":"Biology, Empathy, Communication","degree":"Medicine (MBBS/MD)"},
+        {"name":"🩺 Nurse","description":"Provides patient care and supports doctors.","salary":"$50k–100k/year","skills":"Compassion, Teamwork","degree":"Nursing"},
+        {"name":"🦷 Dentist","description":"Treats teeth and oral health problems.","salary":"$90k–220k/year","skills":"Precision, Biology","degree":"Dentistry"},
+        {"name":"🧠 Psychologist","description":"Helps improve mental health and wellbeing.","salary":"$60k–130k/year","skills":"Listening, Empathy","degree":"Psychology"},
+        {"name":"💊 Pharmacist","description":"Dispenses medicines and advises patients.","salary":"$80k–140k/year","skills":"Chemistry, Attention to Detail","degree":"Pharmacy"},
+        {"name":"🧬 Biomedical Engineer","description":"Designs medical devices and healthcare technology.","salary":"$80k–150k/year","skills":"Biology, Engineering","degree":"Biomedical Engineering"},
+        {"name":"🤖 AI Engineer","description":"Develops artificial intelligence systems.","salary":"$100k–200k/year","skills":"Python, Machine Learning","degree":"Computer Science"},
+        {"name":"💻 Software Engineer","description":"Builds software and applications.","salary":"$90k–180k/year","skills":"Programming, Problem Solving","degree":"Computer Science"},
+        {"name":"🌐 Web Developer","description":"Creates websites and web applications.","salary":"$60k–130k/year","skills":"HTML, CSS, JavaScript","degree":"Computer Science"},
+        {"name":"📱 Mobile App Developer","description":"Builds Android and iOS applications.","salary":"$80k–160k/year","skills":"Flutter, Java, Swift","degree":"Computer Science"},
+        {"name":"📊 Data Scientist","description":"Uses data to solve real-world problems.","salary":"$90k–170k/year","skills":"Python, Statistics","degree":"Data Science"},
+        {"name":"🔒 Cybersecurity Analyst","description":"Protects organizations from cyber attacks.","salary":"$90k–170k/year","skills":"Networking, Security","degree":"Cybersecurity"},
+        {"name":"☁️ Cloud Engineer","description":"Builds and manages cloud infrastructure.","salary":"$100k–180k/year","skills":"AWS, Azure","degree":"Computer Science"},
+        {"name":"⚙️ Mechanical Engineer","description":"Designs machines and mechanical systems.","salary":"$70k–150k/year","skills":"Physics, CAD","degree":"Mechanical Engineering"},
+        {"name":"🏗️ Civil Engineer","description":"Designs roads, bridges and buildings.","salary":"$70k–140k/year","skills":"Math, Engineering","degree":"Civil Engineering"},
+        {"name":"⚡ Electrical Engineer","description":"Designs electrical systems and electronics.","salary":"$80k–150k/year","skills":"Circuits, Physics","degree":"Electrical Engineering"},
+        {"name":"🧪 Chemical Engineer","description":"Develops industrial chemical processes.","salary":"$80k–150k/year","skills":"Chemistry, Math","degree":"Chemical Engineering"},
+        {"name":"✈️ Aerospace Engineer","description":"Designs aircraft and spacecraft.","salary":"$100k–180k/year","skills":"Physics, Engineering","degree":"Aerospace Engineering"},
+        {"name":"💼 Entrepreneur","description":"Starts and grows successful businesses.","salary":"Varies","skills":"Leadership, Creativity","degree":"Business (optional)"},
+        {"name":"📈 Business Analyst","description":"Improves businesses using data and strategy.","salary":"$70k–140k/year","skills":"Analysis, Communication","degree":"Business"},
+        {"name":"💰 Accountant","description":"Manages financial records and taxes.","salary":"$60k–120k/year","skills":"Math, Accuracy","degree":"Accounting"},
+        {"name":"📣 Marketing Manager","description":"Promotes products, services and brands.","salary":"$70k–150k/year","skills":"Communication, Creativity","degree":"Marketing"},
+        {"name":"⚖️ Lawyer","description":"Represents clients and provides legal advice.","salary":"$80k–200k/year","skills":"Critical Thinking, Speaking","degree":"Law"},
+        {"name":"🏛️ Architect","description":"Designs buildings and modern structures.","salary":"$70k–150k/year","skills":"Design, Creativity","degree":"Architecture"},
+        {"name":"🎨 Graphic Designer","description":"Creates logos, posters and digital artwork.","salary":"$50k–100k/year","skills":"Adobe Suite, Creativity","degree":"Graphic Design"},
+        {"name":"🖥️ UX Designer","description":"Designs user-friendly digital experiences.","salary":"$80k–150k/year","skills":"UI/UX, Research","degree":"Design or Computer Science"},
+        {"name":"🎬 Animator","description":"Creates animations for films and games.","salary":"$60k–120k/year","skills":"Animation, Creativity","degree":"Animation"},
+        {"name":"🎮 Game Developer","description":"Builds exciting video games.","salary":"$70k–150k/year","skills":"Programming, Game Design","degree":"Computer Science"},
+        {"name":"📰 Journalist","description":"Researches and reports news stories.","salary":"$45k–100k/year","skills":"Writing, Investigation","degree":"Journalism"},
+        {"name":"👨‍🏫 Teacher","description":"Educates and inspires students.","salary":"$40k–90k/year","skills":"Communication, Patience","degree":"Education"}
 
-{"name":"🩺 Nurse","description":"Provides patient care and supports doctors.","salary":"$50k–100k/year","skills":"Compassion, Teamwork","degree":"Nursing"},
+    ]
 
-{"name":"🦷 Dentist","description":"Treats teeth and oral health problems.","salary":"$90k–220k/year","skills":"Precision, Biology","degree":"Dentistry"},
+    search = st.text_input("🔍 Search a career")
 
-{"name":"🧠 Psychologist","description":"Helps improve mental health and wellbeing.","salary":"$60k–130k/year","skills":"Listening, Empathy","degree":"Psychology"},
+    for career in careers:
 
-{"name":"💊 Pharmacist","description":"Dispenses medicines and advises patients.","salary":"$80k–140k/year","skills":"Chemistry, Attention to Detail","degree":"Pharmacy"},
+        if search.lower() in career["name"].lower():
 
-{"name":"🧬 Biomedical Engineer","description":"Designs medical devices and healthcare technology.","salary":"$80k–150k/year","skills":"Biology, Engineering","degree":"Biomedical Engineering"},
+            with st.container(border=True):
 
-{"name":"🤖 AI Engineer","description":"Develops artificial intelligence systems.","salary":"$100k–200k/year","skills":"Python, Machine Learning","degree":"Computer Science"},
+                st.subheader(career["name"])
 
-{"name":"💻 Software Engineer","description":"Builds software and applications.","salary":"$90k–180k/year","skills":"Programming, Problem Solving","degree":"Computer Science"},
+                st.write(career["description"])
 
-{"name":"🌐 Web Developer","description":"Creates websites and web applications.","salary":"$60k–130k/year","skills":"HTML, CSS, JavaScript","degree":"Computer Science"},
+                st.write(f"**💰 Average Salary:** {career['salary']}")
 
-{"name":"📱 Mobile App Developer","description":"Builds Android and iOS apps.","salary":"$80k–160k/year","skills":"Flutter, Java, Swift","degree":"Computer Science"},
+                st.write(f"**🧠 Skills Needed:** {career['skills']}")
 
-{"name":"📊 Data Scientist","description":"Finds insights from data using statistics and AI.","salary":"$90k–170k/year","skills":"Python, Statistics","degree":"Data Science"},
+                st.write(f"**🎓 Degree:** {career['degree']}")
+```
 
-{"name":"🔒 Cybersecurity Analyst","description":"Protects systems from cyber attacks.","salary":"$90k–170k/year","skills":"Networking, Security","degree":"Cybersecurity"},
-
-{"name":"☁️ Cloud Engineer","description":"Manages cloud computing platforms.","salary":"$100k–180k/year","skills":"AWS, Azure","degree":"Computer Science"},
-
-{"name":"⚙️ Mechanical Engineer","description":"Designs machines and mechanical systems.","salary":"$70k–150k/year","skills":"Physics, CAD","degree":"Mechanical Engineering"},
-
-{"name":"🏗️ Civil Engineer","description":"Designs roads, bridges and buildings.","salary":"$70k–140k/year","skills":"Math, Engineering","degree":"Civil Engineering"},
-
-{"name":"⚡ Electrical Engineer","description":"Designs electrical systems and electronics.","salary":"$80k–150k/year","skills":"Physics, Circuits","degree":"Electrical Engineering"},
-
-{"name":"🧪 Chemical Engineer","description":"Develops industrial chemical processes.","salary":"$80k–150k/year","skills":"Chemistry, Math","degree":"Chemical Engineering"},
-
-{"name":"✈️ Aerospace Engineer","description":"Designs aircraft and spacecraft.","salary":"$100k–180k/year","skills":"Physics, Engineering","degree":"Aerospace Engineering"},
-
-{"name":"💼 Entrepreneur","description":"Starts and grows businesses.","salary":"Varies","skills":"Leadership, Creativity","degree":"Business (optional)"},
-
-{"name":"📈 Business Analyst","description":"Improves business performance using data.","salary":"$70k–140k/year","skills":"Analysis, Communication","degree":"Business"},
-
-{"name":"💰 Accountant","description":"Manages financial records and taxes.","salary":"$60k–120k/year","skills":"Math, Accuracy","degree":"Accounting"},
-
-{"name":"📣 Marketing Manager","description":"Promotes products and brands.","salary":"$70k–150k/year","skills":"Creativity, Communication","degree":"Marketing"},
-
-{"name":"⚖️ Lawyer","description":"Provides legal advice and represents clients.","salary":"$80k–200k/year","skills":"Critical Thinking, Speaking","degree":"Law"},
-
-{"name":"🏛️ Architect","description":"Designs buildings and structures.","salary":"$70k–150k/year","skills":"Creativity, Design","degree":"Architecture"},
-
-{"name":"🎨 Graphic Designer","description":"Creates visual designs and branding.","salary":"$50k–100k/year","skills":"Creativity, Adobe Suite","degree":"Graphic Design"},
-
-{"name":"🖥️ UX Designer","description":"Designs user-friendly digital experiences.","salary":"$80k–150k/year","skills":"UI/UX, Research","degree":"Design or CS"},
-
-{"name":"🎬 Animator","description":"Creates animations for games and films.","salary":"$60k–120k/year","skills":"Animation, Creativity","degree":"Animation"},
-
-{"name":"🎮 Game Developer","description":"Builds video games.","salary":"$70k–150k/year","skills":"Programming, Game Design","degree":"Computer Science"},
-
-{"name":"📰 Journalist","description":"Researches and reports news stories.","salary":"$45k–100k/year","skills":"Writing, Investigation","degree":"Journalism"},
-
-{"name":"👨‍🏫 Teacher","description":"Educates and inspires students.","salary":"$40k–90k/year","skills":"Communication, Patience","degree":"Education"}
-
-]
 # -----------------------------
 # ABOUT
 # -----------------------------
