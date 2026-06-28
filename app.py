@@ -1,4 +1,5 @@
 import streamlit as st
+from career_engine import recommend_careers
 
 # -----------------------------
 # PAGE CONFIGURATION
