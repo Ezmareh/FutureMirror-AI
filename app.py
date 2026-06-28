@@ -235,7 +235,7 @@ elif page == "🪞 Discover My Future":
             st.markdown("### 🧠 Powers You'll Need")
 
             for power in info["powers"]:
-            st.write(f"- {power}")
+                st.write(f"- {power}")
 
             st.markdown("### 🚀 First Mission")
 
