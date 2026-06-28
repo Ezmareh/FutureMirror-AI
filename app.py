@@ -279,7 +279,7 @@ elif page == "🪞 Discover My Future":
 
             st.info(f"Imagine yourself a few years from now working as a **{career}**, using your skills to make a real impact every day.")
 
-           for power in info["powers"]:
+            for power in info["powers"]:
               st.write(f"- {power}")
 
             st.success(info["mission"])
