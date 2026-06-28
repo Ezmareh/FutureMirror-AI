@@ -6,6 +6,7 @@ from career_engine import recommend_careers
 # -----------------------------
 st.set_page_config(
     page_title="FutureMirror AI",
+    page_icon="🪞",
     layout="wide"
 )
 
@@ -18,7 +19,7 @@ page = st.sidebar.radio(
     "Navigate",
     [
         "🏠 Home",
-        "Discover My Future",
+        " 🪞 Discover My Future",
         "📚 Career Library",
         "ℹ️ About"
     ]
