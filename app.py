@@ -295,6 +295,73 @@ elif page == "📚 Career Library":
 
     st.title("📚 Career Library")
 
+    careers = [
+        {
+            "name": "👨‍⚕️ Doctor",
+            "description": "Diagnoses illnesses and helps patients recover.",
+            "salary": "$80k–250k/year",
+            "skills": "Biology, Communication, Empathy",
+            "degree": "Medicine (MBBS/MD)"
+        },
+        {
+            "name": "🤖 AI Engineer",
+            "description": "Builds intelligent software and machine learning systems.",
+            "salary": "$90k–180k/year",
+            "skills": "Python, AI, Problem Solving",
+            "degree": "Computer Science"
+        },
+        {
+            "name": "💼 Entrepreneur",
+            "description": "Starts and grows businesses to solve problems.",
+            "salary": "Varies",
+            "skills": "Leadership, Business, Creativity",
+            "degree": "Business (optional)"
+        },
+        {
+            "name": "⚖️ Lawyer",
+            "description": "Represents clients and provides legal advice.",
+            "salary": "$70k–180k/year",
+            "skills": "Communication, Research, Critical Thinking",
+            "degree": "Law"
+        },
+        {
+            "name": "🎨 UX Designer",
+            "description": "Designs websites and apps that people enjoy using.",
+            "salary": "$70k–140k/year",
+            "skills": "Creativity, Design, User Research",
+            "degree": "Design or Computer Science"
+        },
+        {
+            "name": "🧠 Psychologist",
+            "description": "Helps people improve their mental health.",
+            "salary": "$60k–130k/year",
+            "skills": "Listening, Empathy, Analysis",
+            "degree": "Psychology"
+        },
+        {
+            "name": "🧬 Biomedical Engineer",
+            "description": "Creates medical technology and healthcare devices.",
+            "salary": "$80k–150k/year",
+            "skills": "Biology, Engineering, Innovation",
+            "degree": "Biomedical Engineering"
+        },
+        {
+            "name": "📊 Data Scientist",
+            "description": "Uses data to solve business and scientific problems.",
+            "salary": "$90k–170k/year",
+            "skills": "Math, Python, Statistics",
+            "degree": "Data Science or Computer Science"
+        }
+    ]
+
+    for career in careers:
+        with st.container(border=True):
+            st.subheader(career["name"])
+            st.write(career["description"])
+            st.write(f"**💰 Salary:** {career['salary']}")
+            st.write(f"**🧠 Skills:** {career['skills']}")
+            st.write(f"**🎓 Degree:** {career['degree']}")
+
 # -----------------------------
 # ABOUT
 # -----------------------------
