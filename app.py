@@ -251,7 +251,7 @@ elif page == "🪞 Discover My Future":
         with st.expander("🟣 Reflection Beta"):
 
             career, score = top_careers[1]
-            info = career_info[career}
+            info = career_info[career]
 
             st.subheader(career)
 
@@ -271,7 +271,7 @@ elif page == "🪞 Discover My Future":
         with st.expander("🔵 Reflection Gamma"):
 
             career, score = top_careers[2]
-            info = career_info{career}
+            info = career_info[career]
 
             st.subheader(career)
 
