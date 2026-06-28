@@ -213,7 +213,7 @@ elif page == "🪞 Discover My Future":
         time.sleep(1)
 
         status.success("Mirror Unlocked!")
-        top_careers = recommend_careers(subjects, interests, strengths)
+        top_careers, career_info = recommend_careers(subjects, interests, strengths)
 
         st.balloons()
 
@@ -222,6 +222,7 @@ elif page == "🪞 Discover My Future":
         with st.expander("🟢 Reflection Alpha",expanded=True):
 
             career, score = top_careers[0]
+            info = career_info[career]
 
             st.subheader(career)
 
@@ -229,29 +230,24 @@ elif page == "🪞 Discover My Future":
 
             st.markdown("### 💬 Future Snapshot")
 
-            st.info(
-                "It is 2037. You are building intelligent software that helps millions of people solve everyday problems. Every day brings a new challenge, and that's exactly what motivates you."
-            )
+            st.info(f"Imagine yourself a few years from now working as a **{career}**, using your skills to make a real impact every day.")
 
             st.markdown("### 🧠 Powers You'll Need")
 
-            st.write("- Python")
-            st.write("- Machine Learning")
-            st.write("- Problem Solving")
-            st.write("- Communication")
+            for power in info["powers"]:
+            st.write(f"- {power}")
 
             st.markdown("### 🚀 First Mission")
 
-            st.success("Build your first AI chatbot or personal assistant.")
+            st.success(info["mission"])
 
             st.markdown("### 🎓 Journey Ahead")
 
-            st.write("Computer Science → AI Specialization")
+            st.write(info["journey"])
 
             st.markdown("### ⚠ Biggest Obstacle")
 
-            st.warning("Technology changes quickly. Lifelong learning is essential.")
-
+            st.warning(info["obstacle"])
         with st.expander("🟣 Reflection Beta"):
 
             career, score = top_careers[1]
