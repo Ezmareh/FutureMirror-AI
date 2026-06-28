@@ -355,3 +355,52 @@ elif page == "📚 Career Library":
 elif page == "ℹ️ About":
 
     st.title("ℹ️ About FutureMirror AI")
+
+    st.markdown("""
+    ## 🌟 Our Mission
+
+    Choosing a career can feel overwhelming. FutureMirror AI was created to help students
+    explore careers that match their interests, strengths, and favourite subjects.
+
+    Instead of telling users what they *must* become, FutureMirror AI encourages them to
+    discover multiple possibilities and start thinking about their future.
+    """)
+
+    st.divider()
+
+    col1, col2 = st.columns(2)
+
+    with col1:
+        st.subheader("🎯 Features")
+
+        st.write("✅ Personalized career recommendations")
+        st.write("✅ Three future career reflections")
+        st.write("✅ Career Library with 30 professions")
+        st.write("✅ Career-specific skills and learning paths")
+        st.write("✅ Simple and interactive interface")
+
+    with col2:
+        st.subheader("🛠 Technologies Used")
+
+        st.write("• Python")
+        st.write("• Streamlit")
+        st.write("• Custom Career Recommendation Engine")
+
+    st.divider()
+
+    st.subheader("👨‍💻 Developer")
+
+    st.info("""
+**Project:** FutureMirror AI
+
+**Version:** 1.0
+
+**Developed By:** Ezmareh Rehman
+
+FutureMirror AI was built as a school project to demonstrate how technology can help students make more informed career decisions.
+""")
+
+    st.divider()
+
+    st.success("✨ Thank you for exploring FutureMirror AI. Your future starts with the choices you make today.")
+```
