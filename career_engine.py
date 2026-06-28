@@ -138,6 +138,17 @@ career_info = {
         "mission": "Conduct a simple science project.",
         "journey": "Science Degree → Research Scientist",
         "obstacle": "Years of research."
+    },
+        "Pharmacist": {
+        "powers": [
+            "Chemistry",
+            "Attention to Detail",
+            "Medicine Knowledge",
+            "Communication"
+        ],
+        "mission": "Learn the basics of medicines and complete an introductory pharmacology course.",
+        "journey": "Pharmacy Degree → Licensed Pharmacist",
+        "obstacle": "Keeping up with new medications and ensuring prescriptions are accurate."
     }
 }
 
