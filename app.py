@@ -19,7 +19,7 @@ page = st.sidebar.radio(
     "Navigate",
     [
         "🏠 Home",
-        " 🪞 Discover My Future",
+        "🪞 Discover My Future",
         "📚 Career Library",
         "ℹ️ About"
     ]
