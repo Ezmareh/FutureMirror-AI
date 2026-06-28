@@ -213,6 +213,7 @@ elif page == "🪞 Discover My Future":
         time.sleep(1)
 
         status.success("Mirror Unlocked!")
+        top_careers = recommend_careers(subjects, interests, strengths)
 
         st.balloons()
 
