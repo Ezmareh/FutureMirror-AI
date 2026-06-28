@@ -251,32 +251,42 @@ elif page == "🪞 Discover My Future":
         with st.expander("🟣 Reflection Beta"):
 
             career, score = top_careers[1]
+            info = career_info[career}
 
             st.subheader(career)
 
-            st.metric("Compatibility", f"{min(score + 35, 95)}%")
+            st.metric("Compatibility", f"{min(score + 40, 99)}%")
 
-            st.info(
-                "You could lead your own startup, building products that improve everyday life while creating opportunities for others."
-            )
+            st.info(f"Imagine yourself a few years from now working as a **{career}**, using your skills to make a real impact every day.")
+
+            for power in info["powers"]:
+               st.write(f"- {power}")
+
+            st.success(info["mission"])
+
+            st.write(info["journey"])
+
+            st.warning(info["obstacle"])
 
         with st.expander("🔵 Reflection Gamma"):
 
             career, score = top_careers[2]
+            info = career_info{career}
 
             st.subheader(career)
 
-            st.metric("Compatibility", f"{min(score + 30, 90)}%")
+            st.metric("Compatibility", f"{min(score + 40, 99)}%")
 
-            st.info(
-                "Your creativity and curiosity could help you design products that millions of people use every day."
-            )
+            st.info(f"Imagine yourself a few years from now working as a **{career}**, using your skills to make a real impact every day.")
 
-        st.divider()
+           for power in info["powers"]:
+              st.write(f"- {power}")
 
-        st.caption(
-            "FutureMirror AI explores possibilities—not certainties. Your future depends on the choices you make today."
-        )
+            st.success(info["mission"])
+
+            st.write(info["journey"])
+
+            st.warning(info["obstacle"])
 
 # -----------------------------
 # CAREER LIBRARY
