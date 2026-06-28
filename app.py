@@ -221,9 +221,11 @@ elif page == "🪞 Discover My Future":
 
         with st.expander("🟢 Reflection Alpha",expanded=True):
 
-            st.subheader("AI Engineer")
+career, score = top_careers[0]
 
-            st.metric("Compatibility","92%")
+st.subheader(career)
+
+st.metric("Compatibility", f"{min(score + 40, 99)}%")
 
             st.markdown("### 💬 Future Snapshot")
 
@@ -252,9 +254,11 @@ elif page == "🪞 Discover My Future":
 
         with st.expander("🟣 Reflection Beta"):
 
-            st.subheader("Technology Entrepreneur")
+career, score = top_careers[1]
 
-            st.metric("Compatibility","86%")
+st.subheader(career)
+
+st.metric("Compatibility", f"{min(score + 35, 95)}%")
 
             st.info(
                 "You could lead your own startup, building products that improve everyday life while creating opportunities for others."
@@ -262,9 +266,11 @@ elif page == "🪞 Discover My Future":
 
         with st.expander("🔵 Reflection Gamma"):
 
-            st.subheader("Product Designer")
+career, score = top_careers[2]
 
-            st.metric("Compatibility","80%")
+st.subheader(career)
+
+st.metric("Compatibility", f"{min(score + 30, 90)}%")
 
             st.info(
                 "Your creativity and curiosity could help you design products that millions of people use every day."
