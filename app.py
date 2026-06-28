@@ -348,7 +348,6 @@ elif page == "📚 Career Library":
                 st.write(f"**🧠 Skills Needed:** {career['skills']}")
 
                 st.write(f"**🎓 Degree:** {career['degree']}")
-```
 
 # -----------------------------
 # ABOUT
