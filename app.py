@@ -403,4 +403,3 @@ FutureMirror AI was built as a school project to demonstrate how technology can 
     st.divider()
 
     st.success("✨ Thank you for exploring FutureMirror AI. Your future starts with the choices you make today.")
-```
