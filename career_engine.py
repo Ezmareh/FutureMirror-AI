@@ -224,4 +224,4 @@ def recommend_careers(subjects, interests, strengths):
 
     ranked = sorted(careers.items(), key=lambda x: x[1], reverse=True)
 
-    return ranked[:3]
+    return ranked[:3], career_info
