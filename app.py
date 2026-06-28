@@ -291,10 +291,6 @@ elif page == "🪞 Discover My Future":
 # -----------------------------
 # CAREER LIBRARY
 # -----------------------------
-```python
-# -----------------------------
-# CAREER LIBRARY
-# -----------------------------
 elif page == "📚 Career Library":
 
     st.title("📚 Career Library")
