@@ -79,8 +79,46 @@ label                    { color: var(--text-muted) !important; }
   color: var(--text-main) !important;
   border-radius: 10px !important;
 }
-[data-testid="stSlider"] div[data-baseweb="slider"] div {
-  background: var(--purple-bright) !important;
+/* ── Slider — subtle dark track with a thin accent ── */
+[data-testid="stSlider"] [data-baseweb="slider"] [role="slider"] {
+  background: var(--purple-pale) !important;
+  border: 2px solid var(--purple-bright) !important;
+  box-shadow: 0 0 8px rgba(124,58,237,0.5) !important;
+  width: 18px !important;
+  height: 18px !important;
+}
+/* track fill (the colored portion to the left of thumb) */
+[data-testid="stSlider"] [data-baseweb="slider"] div[class*="Track"] div:first-child {
+  background: linear-gradient(90deg, var(--indigo), var(--purple-bright)) !important;
+  height: 4px !important;
+}
+/* track background (unfilled right side) */
+[data-testid="stSlider"] [data-baseweb="slider"] div[class*="Track"] {
+  background: rgba(255,255,255,0.08) !important;
+  height: 4px !important;
+}
+/* kill the full-width purple fill that Streamlit injects */
+[data-testid="stSlider"] div[data-baseweb="slider"] > div {
+  background: transparent !important;
+}
+[data-testid="stSlider"] div[data-baseweb="slider"] {
+  background: transparent !important;
+}
+/* The inner progress/fill div Streamlit uses */
+[data-testid="stSlider"] [data-baseweb="slider"] div[style*="background"] {
+  background: linear-gradient(90deg, var(--indigo), var(--purple-bright)) !important;
+}
+/* Override any full-block purple */
+[data-testid="stSlider"] * {
+  background-color: transparent !important;
+}
+[data-testid="stSlider"] [role="slider"] {
+  background-color: var(--purple-pale) !important;
+}
+[data-testid="stSlider"] [data-testid="stTickBarMin"],
+[data-testid="stSlider"] [data-testid="stTickBarMax"] {
+  color: var(--text-muted) !important;
+  font-size: 12px !important;
 }
 
 /* ── Buttons ── */
