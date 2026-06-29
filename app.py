@@ -636,6 +636,69 @@ st.sidebar.markdown("<p style='color:#475569;font-size:11px;text-align:center;'>
 # ═══════════════════════════════════════════════════════════════
 # HELPER
 # ═══════════════════════════════════════════════════════════════
+# Global university suggestions per broad career category
+GLOBAL_UNIS = {
+    "tech": [
+        {"name": "MIT — Massachusetts Institute of Technology", "url": "https://web.mit.edu", "country": "🇺🇸"},
+        {"name": "Stanford University", "url": "https://www.stanford.edu", "country": "🇺🇸"},
+        {"name": "ETH Zurich", "url": "https://ethz.ch", "country": "🇨🇭"},
+        {"name": "University of Toronto", "url": "https://www.utoronto.ca", "country": "🇨🇦"},
+    ],
+    "medicine": [
+        {"name": "Johns Hopkins University", "url": "https://www.jhu.edu", "country": "🇺🇸"},
+        {"name": "University of Oxford — Medicine", "url": "https://www.ox.ac.uk", "country": "🇬🇧"},
+        {"name": "University of Melbourne", "url": "https://www.unimelb.edu.au", "country": "🇦🇺"},
+        {"name": "Aga Khan University", "url": "https://www.aku.edu", "country": "🇵🇰"},
+    ],
+    "business": [
+        {"name": "Harvard Business School", "url": "https://www.hbs.edu", "country": "🇺🇸"},
+        {"name": "London Business School", "url": "https://www.london.edu", "country": "🇬🇧"},
+        {"name": "INSEAD", "url": "https://www.insead.edu", "country": "🇫🇷"},
+        {"name": "University of British Columbia", "url": "https://www.ubc.ca", "country": "🇨🇦"},
+    ],
+    "engineering": [
+        {"name": "Imperial College London", "url": "https://www.imperial.ac.uk", "country": "🇬🇧"},
+        {"name": "Caltech", "url": "https://www.caltech.edu", "country": "🇺🇸"},
+        {"name": "TU Delft", "url": "https://www.tudelft.nl", "country": "🇳🇱"},
+        {"name": "University of Melbourne", "url": "https://www.unimelb.edu.au", "country": "🇦🇺"},
+    ],
+    "arts": [
+        {"name": "Royal College of Art", "url": "https://www.rca.ac.uk", "country": "🇬🇧"},
+        {"name": "Parsons School of Design", "url": "https://www.newschool.edu/parsons", "country": "🇺🇸"},
+        {"name": "RMIT University", "url": "https://www.rmit.edu.au", "country": "🇦🇺"},
+        {"name": "University of Arts London", "url": "https://www.arts.ac.uk", "country": "🇬🇧"},
+    ],
+    "law": [
+        {"name": "Harvard Law School", "url": "https://hls.harvard.edu", "country": "🇺🇸"},
+        {"name": "University of Cambridge — Law", "url": "https://www.law.cam.ac.uk", "country": "🇬🇧"},
+        {"name": "University of Melbourne — Law", "url": "https://law.unimelb.edu.au", "country": "🇦🇺"},
+        {"name": "University of Toronto — Law", "url": "https://www.law.utoronto.ca", "country": "🇨🇦"},
+    ],
+    "default": [
+        {"name": "University of Oxford", "url": "https://www.ox.ac.uk", "country": "🇬🇧"},
+        {"name": "University of Cambridge", "url": "https://www.cam.ac.uk", "country": "🇬🇧"},
+        {"name": "University of Toronto", "url": "https://www.utoronto.ca", "country": "🇨🇦"},
+        {"name": "University of Melbourne", "url": "https://www.unimelb.edu.au", "country": "🇦🇺"},
+    ],
+}
+
+def _pick_global_unis(career_name: str):
+    c = career_name.lower()
+    if any(k in c for k in ["software","ai ","data","cyber","cloud","developer","engineer","tech","computer","machine"]):
+        return GLOBAL_UNIS["tech"]
+    if any(k in c for k in ["doctor","nurse","dentist","pharma","medical","health","surgeon","psycholog","biomedical"]):
+        return GLOBAL_UNIS["medicine"]
+    if any(k in c for k in ["business","entrepreneur","marketing","accountant","finance","mba","economist"]):
+        return GLOBAL_UNIS["business"]
+    if any(k in c for k in ["mechanical","civil","electrical","chemical","aerospace","structural"]):
+        return GLOBAL_UNIS["engineering"]
+    if any(k in c for k in ["designer","graphic","ux","animator","architect","artist","creative","film","game"]):
+        return GLOBAL_UNIS["arts"]
+    if any(k in c for k in ["law","legal","barrister","solicitor","judge"]):
+        return GLOBAL_UNIS["law"]
+    return GLOBAL_UNIS["default"]
+
+
 def render_reflection(career, score, info):
     st.subheader(career)
     st.metric("Compatibility", f"{score}%")
@@ -650,11 +713,28 @@ def render_reflection(career, score, info):
     st.markdown("### 🚀 First Mission")
     st.success(info["mission"])
 
+    # Pakistani institutes
     institutes = info.get("institutes", [])
     if institutes:
         st.markdown("#### 🏫 Where to Study in Pakistan")
         for inst in institutes:
             st.markdown(f"- [{inst['name']}]({inst['url']})")
+
+    # Global university suggestions
+    global_unis = _pick_global_unis(career)
+    st.markdown("#### 🌍 Top Global Universities for this Path")
+    cols = st.columns(2)
+    for i, uni in enumerate(global_unis):
+        with cols[i % 2]:
+            st.markdown(
+                f"""<div style='background:rgba(124,58,237,0.1);border:1px solid rgba(167,139,250,0.2);
+                border-radius:10px;padding:10px 14px;margin-bottom:8px;'>
+                <span style='font-size:18px;'>{uni['country']}</span>&nbsp;
+                <a href='{uni["url"]}' target='_blank'
+                   style='color:#c4b5fd;font-size:13px;font-weight:600;text-decoration:none;'>{uni['name']}</a>
+                </div>""",
+                unsafe_allow_html=True
+            )
 
     st.markdown("### 🎓 Journey Ahead")
     st.write(info["journey"])
@@ -750,8 +830,21 @@ elif page == "🪞 Discover My Future":
         grade = st.selectbox("Current Grade",
             ["Grade 8","Grade 9","Grade 10","Grade 11","Grade 12","University"])
         subjects = st.multiselect("Favorite Subjects",
-            ["Mathematics","Physics","Computer Science","Biology",
-             "Chemistry","Business","Economics","English","Art"])
+            [
+                "Mathematics", "Physics", "Biology", "Chemistry",
+                "Environmental Science", "Astronomy", "Statistics",
+                "Computer Science", "Information Technology",
+                "Artificial Intelligence", "Robotics", "Electronics",
+                "Business Studies", "Economics", "Accounting",
+                "Sociology", "Psychology", "Political Science",
+                "Law", "Mass Communication",
+                "English Literature", "Urdu Literature", "History",
+                "Geography", "Islamic Studies", "Philosophy",
+                "Art & Design", "Music", "Drama & Theatre",
+                "Physical Education", "Health Sciences",
+                "Architecture", "Agriculture", "Home Economics",
+            ]
+        )
 
     with col2:
         interests = st.text_area("What are your biggest interests?",
