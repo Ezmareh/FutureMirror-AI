@@ -14,14 +14,6 @@ career_info = {
         "obstacle": "Demanding training and long hours."
     },
     
-    "Aerospace Engineer": {
-    "powers": ["Physics", "Mathematics", "Aerodynamics", "Problem Solving"],
-    "mission": "Learn the basics of aircraft and spacecraft design.",
-    "journey": "Aerospace Engineering Degree → Aerospace Engineer",
-    "obstacle": "Highly technical and competitive field."
-  
-    },
-
     "Nurse": {
         "powers": ["Compassion", "Communication", "Patient Care", "Teamwork"],
         "mission": "Volunteer in healthcare or first aid programs.",
@@ -203,10 +195,9 @@ def recommend_careers(subjects, interests, strengths):
         careers["Accountant"] += 20
 
     if "physics" in text:
-        careers["Aerospace Engineer"] += 35
-        careers["Pilot"] += 20
-        careers["Civil Engineer"] += 25
+        careers["Civil Engineer"] += 30
         careers["Scientist"] += 20
+        careers["Pilot"] += 20
 
     # Business
     if "business" in text:
@@ -241,25 +232,6 @@ def recommend_careers(subjects, interests, strengths):
         careers["Graphic Designer"] += 30
         careers["Architect"] += 20
         careers["UX Designer"] += 30
-    
-    # Aerospace
-    if "rocket" in text or "rockets" in text:
-        careers["Aerospace Engineer"] += 50
-
-    if "fighter" in text or "fighterjet" in text or "fighterjets" in text:
-        careers["Aerospace Engineer"] += 50
-
-    if "jet" in text or "jets" in text:
-        careers["Aerospace Engineer"] += 30
-
-    if "pilot" in text or "pilots" in text:
-        careers["Pilot"] += 50
-
-    if "space" in text:
-        careers["Aerospace Engineer"] += 40
-
-    if "aircraft" in text or "aviation" in text:
-        careers["Aerospace Engineer"] += 40
 
     ranked = sorted(careers.items(), key=lambda x: x[1], reverse=True)
 
