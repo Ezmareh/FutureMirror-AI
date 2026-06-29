@@ -207,7 +207,7 @@ elif page == "🪞 Discover My Future":
                 info = career_info[career]
 
                 st.subheader(career)
-                st.metric("Compatibility", f"{min(score + 40, 99)}%")
+                st.metric("Compatibility", f"{score}%")
 
                 st.markdown("### 💬 Future Snapshot")
                 st.info(
@@ -234,7 +234,7 @@ elif page == "🪞 Discover My Future":
                 info = career_info[career]
 
                 st.subheader(career)
-                st.metric("Compatibility", f"{min(score + 40, 99)}%")
+                st.metric("Compatibility", f"{score}%")
 
                 st.markdown("### 💬 Future Snapshot")
                 st.info(
@@ -261,7 +261,7 @@ elif page == "🪞 Discover My Future":
                 info = career_info[career]
 
                 st.subheader(career)
-                st.metric("Compatibility", f"{min(score + 40, 99)}%")
+                st.metric("Compatibility", f"{score}%")
 
                 st.markdown("### 💬 Future Snapshot")
                 st.info(
