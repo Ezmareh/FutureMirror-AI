@@ -1,238 +1,90 @@
-career_info = {
+import json
+import streamlit as st
+from groq import Groq
 
-    "Doctor": {
-        "powers": ["Biology", "Empathy", "Critical Thinking", "Communication"],
-        "mission": "Volunteer at a hospital or complete an online anatomy course.",
-        "journey": "Medical School → Residency → Doctor",
-        "obstacle": "Long years of study and high responsibility."
-    },
+client = Groq(api_key=st.secrets["GROQ_API_KEY"])
 
-    "Surgeon": {
-        "powers": ["Precision", "Biology", "Decision Making", "Calm Under Pressure"],
-        "mission": "Study anatomy and practice fine motor skills.",
-        "journey": "Medical School → Surgical Residency",
-        "obstacle": "Demanding training and long hours."
-    },
-    
-    "Nurse": {
-        "powers": ["Compassion", "Communication", "Patient Care", "Teamwork"],
-        "mission": "Volunteer in healthcare or first aid programs.",
-        "journey": "Nursing Degree → Registered Nurse",
-        "obstacle": "Long shifts."
-    },
 
-    "Psychologist": {
-        "powers": ["Empathy", "Listening", "Research", "Communication"],
-        "mission": "Read introductory psychology books.",
-        "journey": "Psychology Degree → Psychologist",
-        "obstacle": "Emotionally challenging work."
-    },
+def recommend_careers(subjects: list, interests: str, strengths: str):
+    """
+    Uses Groq to recommend 3 career paths based on user inputs.
+    Returns (top_careers, career_info) in the format expected by app.py.
+    """
 
-    "Software Engineer": {
-        "powers": ["Python", "Programming", "Problem Solving", "Logic"],
-        "mission": "Build your first website or app.",
-        "journey": "Computer Science → Software Engineer",
-        "obstacle": "Technology changes quickly."
-    },
+    prompt = f"""
+You are an expert career counsellor for students aged 13–25.
 
-    "AI Engineer": {
-        "powers": ["Machine Learning", "Python", "Mathematics", "Problem Solving"],
-        "mission": "Create an AI chatbot.",
-        "journey": "Computer Science → AI Engineer",
-        "obstacle": "Continuous learning."
-    },
+Based on the student profile below, recommend exactly 3 career paths.
 
-    "Cybersecurity Analyst": {
-        "powers": ["Networking", "Linux", "Security", "Analytical Thinking"],
-        "mission": "Complete beginner cybersecurity labs.",
-        "journey": "IT Degree → Cybersecurity",
-        "obstacle": "Cyber threats evolve constantly."
-    },
+Student Profile:
+- Favourite Subjects: {', '.join(subjects) if subjects else 'Not specified'}
+- Interests: {interests or 'Not specified'}
+- Strengths: {strengths or 'Not specified'}
 
-    "Data Scientist": {
-        "powers": ["Statistics", "Python", "Data Analysis", "Machine Learning"],
-        "mission": "Analyze a real-world dataset.",
-        "journey": "Data Science → Data Scientist",
-        "obstacle": "Complex data."
-    },
+Respond ONLY with a valid JSON object. No explanation, no markdown, no backticks.
 
-    "Biomedical Engineer": {
-        "powers": ["Biology", "Engineering", "Innovation", "Problem Solving"],
-        "mission": "Build a simple health-tech project.",
-        "journey": "Biomedical Engineering Degree",
-        "obstacle": "Combining medicine and engineering."
-    },
+The JSON must follow this exact structure:
+{{
+  "careers": [
+    {{
+      "name": "Career Title",
+      "score": 85,
+      "powers": ["Skill 1", "Skill 2", "Skill 3", "Skill 4"],
+      "mission": "A specific first action the student can take this week to start this career path.",
+      "journey": "A 2-3 sentence description of the educational and professional journey for this career.",
+      "obstacle": "The single biggest challenge they will face on this path."
+    }},
+    {{
+      "name": "Career Title",
+      "score": 78,
+      "powers": ["Skill 1", "Skill 2", "Skill 3"],
+      "mission": "A specific first action the student can take this week.",
+      "journey": "A 2-3 sentence educational/professional journey.",
+      "obstacle": "The biggest challenge they will face."
+    }},
+    {{
+      "name": "Career Title",
+      "score": 72,
+      "powers": ["Skill 1", "Skill 2", "Skill 3"],
+      "mission": "A specific first action the student can take this week.",
+      "journey": "A 2-3 sentence educational/professional journey.",
+      "obstacle": "The biggest challenge they will face."
+    }}
+  ]
+}}
+"""
 
-    "Lawyer": {
-        "powers": ["Research", "Communication", "Debating", "Critical Thinking"],
-        "mission": "Join a debate competition.",
-        "journey": "Law School → Lawyer",
-        "obstacle": "Highly competitive field."
-    },
+    response = client.chat.completions.create(
+        model="llama-3.3-70b-versatile",
+        messages=[{"role": "user", "content": prompt}],
+        temperature=0.8,
+        max_tokens=1500,
+    )
 
-    "Teacher": {
-        "powers": ["Communication", "Patience", "Leadership", "Organization"],
-        "mission": "Tutor another student.",
-        "journey": "Education Degree → Teacher",
-        "obstacle": "Managing different learning styles."
-    },
+    raw = response.choices[0].message.content.strip()
 
-    "Business Entrepreneur": {
-        "powers": ["Leadership", "Marketing", "Finance", "Decision Making"],
-        "mission": "Start a small online business.",
-        "journey": "Business Studies → Entrepreneur",
-        "obstacle": "Financial risk."
-    },
+    # Strip markdown fences if present
+    if raw.startswith("```"):
+        raw = raw.split("```")[1]
+        if raw.startswith("json"):
+            raw = raw[4:]
+    raw = raw.strip()
 
-    "Marketing Manager": {
-        "powers": ["Creativity", "Communication", "Marketing", "Analytics"],
-        "mission": "Create a marketing campaign.",
-        "journey": "Marketing Degree → Marketing Manager",
-        "obstacle": "Keeping up with trends."
-    },
+    data = json.loads(raw)
 
-    "Accountant": {
-        "powers": ["Mathematics", "Accuracy", "Finance", "Organization"],
-        "mission": "Learn Excel and accounting basics.",
-        "journey": "Accounting Degree → Accountant",
-        "obstacle": "Attention to detail."
-    },
+    careers = data["careers"]
 
-    "Architect": {
-        "powers": ["Design", "Creativity", "Mathematics", "Visualization"],
-        "mission": "Design your dream home.",
-        "journey": "Architecture Degree → Architect",
-        "obstacle": "Balancing creativity and engineering."
-    },
+    # Build outputs in the format app.py expects
+    top_careers = [(c["name"], c["score"]) for c in careers]
 
-    "Civil Engineer": {
-        "powers": ["Physics", "Mathematics", "Planning", "Problem Solving"],
-        "mission": "Learn CAD software.",
-        "journey": "Civil Engineering Degree",
-        "obstacle": "Large project responsibility."
-    },
-
-    "Graphic Designer": {
-        "powers": ["Creativity", "Typography", "Photoshop", "Communication"],
-        "mission": "Design a logo.",
-        "journey": "Design Degree → Graphic Designer",
-        "obstacle": "Client expectations."
-    },
-
-    "UX Designer": {
-        "powers": ["User Research", "Creativity", "Figma", "Problem Solving"],
-        "mission": "Design a mobile app interface.",
-        "journey": "UX Design → UX Designer",
-        "obstacle": "Balancing user and business needs."
-    },
-
-    "Pilot": {
-        "powers": ["Focus", "Decision Making", "Mathematics", "Calmness"],
-        "mission": "Practice with flight simulators.",
-        "journey": "Flight School → Airline Pilot",
-        "obstacle": "Strict training."
-    },
-
-    "Scientist": {
-        "powers": ["Research", "Critical Thinking", "Curiosity", "Analysis"],
-        "mission": "Conduct a simple science project.",
-        "journey": "Science Degree → Research Scientist",
-        "obstacle": "Years of research."
-    },
-        "Pharmacist": {
-        "powers": [
-            "Chemistry",
-            "Attention to Detail",
-            "Medicine Knowledge",
-            "Communication"
-        ],
-        "mission": "Learn the basics of medicines and complete an introductory pharmacology course.",
-        "journey": "Pharmacy Degree → Licensed Pharmacist",
-        "obstacle": "Keeping up with new medications and ensuring prescriptions are accurate."
+    career_info = {
+        c["name"]: {
+            "powers":   c["powers"],
+            "mission":  c["mission"],
+            "journey":  c["journey"],
+            "obstacle": c["obstacle"],
+        }
+        for c in careers
     }
-}
 
-
-def recommend_careers(subjects, interests, strengths):
-
-    text = (" ".join(subjects) + " " + interests + " " + strengths).lower()
-
-    careers = {career: 0 for career in career_info.keys()}
-
-    # Medicine
-    if "biology" in text:
-        careers["Doctor"] += 40
-        careers["Surgeon"] += 35
-        careers["Biomedical Engineer"] += 25
-
-    if "chemistry" in text:
-        careers["Doctor"] += 20
-        careers["Pharmacist"] = careers.get("Pharmacist", 0) + 35
-
-    if "help" in text or "people" in text:
-        careers["Doctor"] += 20
-        careers["Nurse"] += 30
-        careers["Psychologist"] += 30
-        careers["Teacher"] += 20
-
-    # Computing
-    if "computer science" in text:
-        careers["Software Engineer"] += 40
-        careers["AI Engineer"] += 35
-        careers["Cybersecurity Analyst"] += 25
-
-    if "coding" in text or "programming" in text:
-        careers["Software Engineer"] += 40
-        careers["AI Engineer"] += 30
-
-    if "ai" in text or "artificial intelligence" in text:
-        careers["AI Engineer"] += 50
-
-    # Maths
-    if "mathematics" in text:
-        careers["Data Scientist"] += 30
-        careers["Civil Engineer"] += 20
-        careers["Accountant"] += 20
-
-    if "physics" in text:
-        careers["Civil Engineer"] += 30
-        careers["Scientist"] += 20
-        careers["Pilot"] += 20
-
-    # Business
-    if "business" in text:
-        careers["Business Entrepreneur"] += 40
-        careers["Marketing Manager"] += 30
-
-    if "economics" in text:
-        careers["Business Entrepreneur"] += 20
-        careers["Accountant"] += 30
-
-    if "leadership" in text:
-        careers["Business Entrepreneur"] += 30
-
-    # Law
-    if "english" in text:
-        careers["Lawyer"] += 20
-
-    if "debate" in text:
-        careers["Lawyer"] += 40
-
-    # Design
-    if "art" in text:
-        careers["Graphic Designer"] += 30
-        careers["UX Designer"] += 25
-        careers["Architect"] += 20
-
-    if "creative" in text:
-        careers["Graphic Designer"] += 25
-        careers["UX Designer"] += 25
-
-    if "design" in text:
-        careers["Graphic Designer"] += 30
-        careers["Architect"] += 20
-        careers["UX Designer"] += 30
-
-    ranked = sorted(careers.items(), key=lambda x: x[1], reverse=True)
-
-    return ranked[:3], career_info
+    return top_careers, career_info
