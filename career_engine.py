@@ -12,7 +12,7 @@ def recommend_careers(subjects: list, interests: str, strengths: str):
     """
 
     prompt = f"""
-You are an expert career counsellor for students aged 13–25.
+You are an expert career counsellor for students aged 13–25 living in Pakistan.
 
 Based on the student profile below, recommend exactly 3 career paths.
 
@@ -32,6 +32,9 @@ IMPORTANT SCORING RULES:
 - Never give two careers the same score
 - A score of 99 or 100 is never realistic — avoid it
 
+For the "institutes" field, provide exactly 3 real Pakistani universities or institutes
+relevant to this career. Each must have a real working website URL.
+
 The JSON must follow this exact structure:
 {{
   "careers": [
@@ -41,7 +44,12 @@ The JSON must follow this exact structure:
       "powers": ["Skill 1", "Skill 2", "Skill 3", "Skill 4"],
       "mission": "A specific first action the student can take this week to start this career path.",
       "journey": "A 2-3 sentence description of the educational and professional journey for this career.",
-      "obstacle": "The single biggest challenge they will face on this path."
+      "obstacle": "The single biggest challenge they will face on this path.",
+      "institutes": [
+        {{"name": "NUST - National University of Sciences and Technology", "url": "https://nust.edu.pk"}},
+        {{"name": "LUMS - Lahore University of Management Sciences", "url": "https://lums.edu.pk"}},
+        {{"name": "FAST-NUCES", "url": "https://nu.edu.pk"}}
+      ]
     }},
     {{
       "name": "Career Title",
@@ -49,7 +57,12 @@ The JSON must follow this exact structure:
       "powers": ["Skill 1", "Skill 2", "Skill 3"],
       "mission": "A specific first action the student can take this week.",
       "journey": "A 2-3 sentence educational/professional journey.",
-      "obstacle": "The biggest challenge they will face."
+      "obstacle": "The biggest challenge they will face.",
+      "institutes": [
+        {{"name": "Institute Name", "url": "https://example.edu.pk"}},
+        {{"name": "Institute Name", "url": "https://example.edu.pk"}},
+        {{"name": "Institute Name", "url": "https://example.edu.pk"}}
+      ]
     }},
     {{
       "name": "Career Title",
@@ -57,7 +70,12 @@ The JSON must follow this exact structure:
       "powers": ["Skill 1", "Skill 2", "Skill 3"],
       "mission": "A specific first action the student can take this week.",
       "journey": "A 2-3 sentence educational/professional journey.",
-      "obstacle": "The biggest challenge they will face."
+      "obstacle": "The biggest challenge they will face.",
+      "institutes": [
+        {{"name": "Institute Name", "url": "https://example.edu.pk"}},
+        {{"name": "Institute Name", "url": "https://example.edu.pk"}},
+        {{"name": "Institute Name", "url": "https://example.edu.pk"}}
+      ]
     }}
   ]
 }}
@@ -67,7 +85,7 @@ The JSON must follow this exact structure:
         model="llama-3.3-70b-versatile",
         messages=[{"role": "user", "content": prompt}],
         temperature=0.8,
-        max_tokens=1500,
+        max_tokens=2000,
     )
 
     raw = response.choices[0].message.content.strip()
@@ -80,7 +98,6 @@ The JSON must follow this exact structure:
     raw = raw.strip()
 
     data = json.loads(raw)
-
     careers = data["careers"]
 
     # Build outputs in the format app.py expects
@@ -88,10 +105,11 @@ The JSON must follow this exact structure:
 
     career_info = {
         c["name"]: {
-            "powers":   c["powers"],
-            "mission":  c["mission"],
-            "journey":  c["journey"],
-            "obstacle": c["obstacle"],
+            "powers":     c["powers"],
+            "mission":    c["mission"],
+            "journey":    c["journey"],
+            "obstacle":   c["obstacle"],
+            "institutes": c.get("institutes", []),
         }
         for c in careers
     }
