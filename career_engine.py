@@ -23,12 +23,21 @@ Student Profile:
 
 Respond ONLY with a valid JSON object. No explanation, no markdown, no backticks.
 
+IMPORTANT SCORING RULES:
+- Score represents how well this career matches the student's profile (0–100)
+- Scores must feel realistic and varied — never inflate them
+- Alpha (best match): score between 72–88
+- Beta (good match): score between 58–74
+- Gamma (possible match): score between 44–62
+- Never give two careers the same score
+- A score of 99 or 100 is never realistic — avoid it
+
 The JSON must follow this exact structure:
 {{
   "careers": [
     {{
       "name": "Career Title",
-      "score": 85,
+      "score": 81,
       "powers": ["Skill 1", "Skill 2", "Skill 3", "Skill 4"],
       "mission": "A specific first action the student can take this week to start this career path.",
       "journey": "A 2-3 sentence description of the educational and professional journey for this career.",
@@ -36,7 +45,7 @@ The JSON must follow this exact structure:
     }},
     {{
       "name": "Career Title",
-      "score": 78,
+      "score": 67,
       "powers": ["Skill 1", "Skill 2", "Skill 3"],
       "mission": "A specific first action the student can take this week.",
       "journey": "A 2-3 sentence educational/professional journey.",
@@ -44,7 +53,7 @@ The JSON must follow this exact structure:
     }},
     {{
       "name": "Career Title",
-      "score": 72,
+      "score": 53,
       "powers": ["Skill 1", "Skill 2", "Skill 3"],
       "mission": "A specific first action the student can take this week.",
       "journey": "A 2-3 sentence educational/professional journey.",
